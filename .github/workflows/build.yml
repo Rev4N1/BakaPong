@@ -1,8 +1,7 @@
 name: Build NP2 Kernel
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 on:
   workflow_dispatch:
@@ -43,7 +42,7 @@ on:
         type: string
         default: ""
       bbg_support:
-        description: "Enable BBG support (Warning: May bootloop with ReSukiSU/SUSFS)"
+        description: "Enable BBG support (Warning: May bootloop with BakaSU/SUSFS)"
         required: false
         type: boolean
         default: false
@@ -57,6 +56,11 @@ on:
         required: false
         type: string
         default: "LineageOS"
+      bakasu_ref:
+        description: "BakaSU tag or commit (empty = latest main)"
+        required: false
+        type: string
+        default: ""
 
   workflow_call:
     inputs:
@@ -101,13 +105,16 @@ on:
         required: false
         type: string
         default: "LineageOS"
+      bakasu_ref:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      UPLOAD_ARTIFACT_ACTION: ${{ github.server_url == 'https://git.miguvt.com' && 'actions/upload-artifact@v3' || 'actions/upload-artifact@v4' }}
       KERNEL_DIR: kernel
       ANYKERNEL_DIR: AnyKernel3
       DEFCONFIG: ${{ inputs.kernel_defconfig }}
@@ -127,7 +134,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install dependencies & Setup CCache
         run: |
@@ -175,10 +182,12 @@ jobs:
           git clone --depth=1 -b "${{ inputs.susfs_branch || 'gki-android13-5.10' }}" \
             https://gitlab.com/simonpunk/susfs4ksu.git
 
-      - name: Setup ReSukiSU
+      - name: Setup BakaSU
+        env:
+          BAKASU_REF: ${{ inputs.bakasu_ref }}
         run: |
           cd "$KERNEL_DIR"
-          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+          curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh" | bash -s -- ${BAKASU_REF:+"$BAKASU_REF"}
 
       - name: Apply extra patches
         if: ${{ inputs.extra_patches_dir != '' }}
@@ -245,17 +254,17 @@ jobs:
           KERNEL_TYPE="${{ inputs.kernel_type || 'LineageOS' }}" Scripts/package_anykernel.sh
 
       - name: Upload artifact
-        uses: ${{ env.UPLOAD_ARTIFACT_ACTION }}
+        uses: actions/upload-artifact@v5
         with:
-          name: kernel-${{ inputs.kernel_type || 'LineageOS' }}-NP2-ReSukiSU
-          path: "kernel-${{ inputs.kernel_type || 'LineageOS' }}-NP2-ReSukiSU.zip"
+          name: kernel-${{ inputs.kernel_type || 'LineageOS' }}-NP2-BakaSU
+          path: "kernel-${{ inputs.kernel_type || 'LineageOS' }}-NP2-BakaSU.zip"
           retention-days: 30
 
       - name: Upload .config for debugging
         if: always()
-        uses: ${{ env.UPLOAD_ARTIFACT_ACTION }}
+        uses: actions/upload-artifact@v5
         with:
-          name: config-NP2-ReSukiSU
+          name: config-${{ inputs.kernel_type || 'LineageOS' }}-NP2-BakaSU
           path: kernel/out/.config
           retention-days: 1
 
@@ -276,7 +285,7 @@ jobs:
 
       - name: Upload .rej files
         if: always() && steps.collect_rej.outputs.found == 'true'
-        uses: ${{ env.UPLOAD_ARTIFACT_ACTION }}
+        uses: actions/upload-artifact@v5
         with:
-          name: rej-NP2-ReSukiSU
+          name: rej-${{ inputs.kernel_type || 'LineageOS' }}-NP2-BakaSU
           path: rej/

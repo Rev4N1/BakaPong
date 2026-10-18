@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased - BakaSU
+
+## Changes
+- Switched root to [BakaSU](https://github.com/Baka-SU/BakaSU) (ReSukiSU was renamed upstream); the build now pulls `setup.sh` from the BakaSU repo
+- Renamed build artifacts and zips to `kernel-<type>-NP2-BakaSU.zip`
+
+## Fixed
+- Workflow rejected by GitHub (`uses:` can't take an expression); artifact uploads now use `actions/upload-artifact@v5`
+- "Test All Builds" no longer fails on duplicate `config`/`rej` artifact names
+- Builds work on forks: token permissions reduced to `contents: read`
+
+## New
+- `bakasu_ref` input to pin a BakaSU tag or commit (empty = latest `main`)
+
 ## v3.0.5 - The architecture update (Jul.1 2026)
 
 ## New

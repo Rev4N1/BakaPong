@@ -2,6 +2,15 @@ name: Test All Builds
 
 on:
   workflow_dispatch:
+    inputs:
+      bakasu_ref:
+        description: "BakaSU tag or commit (empty = latest main)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -56,3 +65,4 @@ jobs:
       susfs_support: ${{ matrix.susfs_support }}
       bbg_support: ${{ matrix.bbg_support }}
       susfs_force: ${{ matrix.susfs_force }}
+      bakasu_ref: ${{ inputs.bakasu_ref }}

@@ -3,7 +3,7 @@
 
 ## AnyKernel setup
 properties() { '
-kernel.string=NP2 Kernel - BakaSU by MiguVT
+kernel.string=BakaPong Kernel - BakaSU + SUSFS for Nothing Phone (2)
 do.devicecheck=1
 do.modules=0
 do.systemless=0

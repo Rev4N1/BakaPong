@@ -1,37 +1,34 @@
-# NP² Kernel
-![NP²_Kernel](https://socialify.git.ci/MiguVT/NP2_Kernel/image?custom_description=Simple+workflow+for+build+ANY+kernel+with+BakaSU+%2B+SuSFS&description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Auto)
+# BakaPong
 
-The official source for this repository is the [GitHub repo](https://github.com/MiguVT/NP2_Kernel) and the Mirror hosted on [MiGit](https://git.miguvt.com/MiguVT/NP2_Kernel) (Forgejo).
-
-The [Releases](https://github.com/MiguVT/NP2_Kernel/releases) include builds compatible with the Nothing Phone 2, including the following kernels:
-- **LineageOS's kernel** - Recommended for LineageOS or similar custom ROMs.
-> Im currently working to give Nothing official kernel support and also arter97's kernel, Pull Requests are welcome
+Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaSU](https://github.com/Baka-SU/BakaSU) root and [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) hiding built in. Built entirely by GitHub Actions from the [LineageOS kernel source](https://github.com/LineageOS/android_kernel_nothing_sm8475).
 
 ## Features
 
-- **[BakaSU](https://github.com/Baka-SU/BakaSU)**: Kernel-level root (formerly ReSukiSU, a SukiSU-Ultra fork).
-- **[SUSFS](https://gitlab.com/simonpunk/susfs4ksu)**: Hide root from banking apps, games, and safety checks.
-- **[BaseBandGuard](https://github.com/vc-teahouse/Baseband-guard)**: Prevents apps and modules from modifying critical files.
-- ~~**KPM Support**: Enabled via [KernelPatch by SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU_KernelPatch_patch).~~ *(Dropped upstream)*
+- **[BakaSU](https://github.com/Baka-SU/BakaSU)**: kernel-level root (formerly ReSukiSU).
+- **[SUSFS](https://gitlab.com/simonpunk/susfs4ksu)**: hides root from banking apps, games and integrity checks.
+- **[BaseBandGuard](https://github.com/vc-teahouse/Baseband-guard)** (optional, off by default): stops apps and modules from touching critical partitions. It may bootloop together with BakaSU/SUSFS.
 
 ## Install
 
-1. Download the desired Kernel zip from [Releases](https://github.com/MiguVT/NP2_Kernel/releases).
+1. Download `BakaPong-LineageOS.zip` from [Releases](../../releases).
 2. Boot into recovery (TWRP / OrangeFox).
 3. Flash the zip and reboot.
-4. (Optional but recommended) Install the [BakaSU Manager](https://bakasu.org) to manage root.
+4. Install the [BakaSU Manager](https://bakasu.org) to manage root.
 
-> **Warning:** Backup your stock boot image first. Bootloader must be unlocked. Use at your own risk.
+> **Warning:** Back up your boot image first. The bootloader must be unlocked. Use at your own risk.
 
 ## Build it yourself
 
 1. Fork this repo.
-2. Go to **Actions** $\rightarrow$ **Build NP2 Kernel** $\rightarrow$ **Run workflow**.
-3. Download the zip from the completed run.
+2. Go to **Actions** → **Test All Builds** (or **Build BakaPong Kernel** for custom inputs) → **Run workflow**.
+3. Download the zip from the finished run.
+
+The `bakasu_ref` input picks the BakaSU version. Leave it empty to use the last BakaSU commit that still builds with SUSFS (BakaSU `main` currently refuses SUSFS builds until SUSFS catches up), or set it to `main`, a tag or a commit.
 
 ## Credits
 
-- [BakaSU (formerly ReSukiSU) maintainers & contributors](https://github.com/Baka-SU/BakaSU)
+- [MiguVT](https://github.com/MiguVT/NP2_Kernel): original NP² Kernel workflow this project is based on
+- [BakaSU maintainers & contributors](https://github.com/Baka-SU/BakaSU)
 - [simonpunk](https://gitlab.com/simonpunk/susfs4ksu) (SUSFS)
 - [osm0sis](https://github.com/osm0sis) (AnyKernel3)
 - [vc-teahouse & contributors](https://github.com/vc-teahouse/Baseband-guard) (BaseBandGuard)

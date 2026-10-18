@@ -1,18 +1,20 @@
 # Changelog
 
-## Unreleased - BakaSU
+## Unreleased - BakaPong
 
 ## Changes
-- Switched root to [BakaSU](https://github.com/Baka-SU/BakaSU) (ReSukiSU was renamed upstream); the build now pulls `setup.sh` from the BakaSU repo
-- Renamed build artifacts and zips to `kernel-<type>-NP2-BakaSU.zip`
+- Renamed the project to BakaPong; zips are now `BakaPong-<type>.zip`
+- Switched root to [BakaSU](https://github.com/Baka-SU/BakaSU) (ReSukiSU was renamed upstream)
+- BakaSU defaults to commit `5b76b88`, the last one that builds with SUSFS (BakaSU `main` blocks SUSFS builds for now)
+- LineageOS only: dropped the NothingOSS and arter97 builds
 
 ## Fixed
 - Workflow rejected by GitHub (`uses:` can't take an expression); artifact uploads now use `actions/upload-artifact@v5`
-- "Test All Builds" no longer fails on duplicate `config`/`rej` artifact names
 - Builds work on forks: token permissions reduced to `contents: read`
+- A bad `bakasu_ref` now fails the build instead of silently using `main`
 
 ## New
-- `bakasu_ref` input to pin a BakaSU tag or commit (empty = latest `main`)
+- `bakasu_ref` input to choose a BakaSU tag or commit (`main` = latest)
 
 ## v3.0.5 - The architecture update (Jul.1 2026)
 

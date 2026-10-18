@@ -112,7 +112,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # pinned: ubuntu-latest moves to 26.04 (new clang) from Oct 19 2026
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     env:
       KERNEL_DIR: kernel
@@ -251,7 +252,7 @@ jobs:
           KERNEL_TYPE="${{ inputs.kernel_type || 'LineageOS' }}" Scripts/package_anykernel.sh
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: BakaPong-${{ inputs.kernel_type || 'LineageOS' }}
           path: "BakaPong-${{ inputs.kernel_type || 'LineageOS' }}.zip"
@@ -259,10 +260,11 @@ jobs:
 
       - name: Upload .config for debugging
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: config-${{ inputs.kernel_type || 'LineageOS' }}-BakaPong
           path: kernel/out/.config
+          include-hidden-files: true
           retention-days: 1
 
       - name: Collect .rej files
@@ -282,7 +284,7 @@ jobs:
 
       - name: Upload .rej files
         if: always() && steps.collect_rej.outputs.found == 'true'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: rej-${{ inputs.kernel_type || 'LineageOS' }}-BakaPong
           path: rej/

@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased - BakaPong
+## Unreleased
+
+## Fixed
+- `.config` debug artifact was always empty (hidden files are skipped by default)
+- Node 20 deprecation warning: `actions/upload-artifact@v7`
+- Runner pinned to `ubuntu-24.04` ahead of the `ubuntu-latest` move to 26.04
+
+## v1.0.0 - BakaPong (Oct.18 2026)
 
 ## Changes
 - Renamed the project to BakaPong; zips are now `BakaPong-<type>.zip`

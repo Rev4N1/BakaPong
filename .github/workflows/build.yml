@@ -57,7 +57,7 @@ on:
         type: string
         default: "LineageOS"
       bakasu_ref:
-        description: "BakaSU tag or commit (empty = last SUSFS-compatible commit, main = latest)"
+        description: "BakaSU tag or commit (empty = last commit tested with SUSFS, main = latest)"
         required: false
         type: string
         default: ""
@@ -175,9 +175,8 @@ jobs:
 
       - name: Setup BakaSU
         env:
-          # BakaSU main refuses SUSFS builds since 48fa4bb ("suspend susfs build"),
-          # so default to its parent until SUSFS catches up
-          BAKASU_REF: ${{ inputs.bakasu_ref || '5b76b884c75f729a220bb317aa4a4fc78f0e0e9c' }}
+          # Last BakaSU commit tested with SUSFS on this kernel
+          BAKASU_REF: ${{ inputs.bakasu_ref || 'd5e9e025b8b49155f8014684d64c91742b465f65' }}
         run: |
           cd "$KERNEL_DIR"
           curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh" | bash -s -- "$BAKASU_REF"

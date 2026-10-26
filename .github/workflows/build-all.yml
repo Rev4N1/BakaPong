@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       bakasu_ref:
-        description: "BakaSU tag or commit (empty = last SUSFS-compatible commit, main = latest)"
+        description: "BakaSU tag or commit (empty = last commit tested with SUSFS, main = latest)"
         required: false
         type: string
         default: ""

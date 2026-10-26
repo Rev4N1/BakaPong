@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## v1.1.0 - BakaSU update (Oct.27 2026)
+
+## Changes
+- BakaSU bumped to `d5e9e02` (v4.2.0-rc3+), which builds with SUSFS again; fixes the manager asking for a kernel update
+- Releases now include the matching BakaSU Manager APK (arm64-v8a)
 
 ## Fixed
 - `.config` debug artifact was always empty (hidden files are skipped by default)

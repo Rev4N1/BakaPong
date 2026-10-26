@@ -23,7 +23,7 @@ Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaS
 2. Go to **Actions** → **Test All Builds** (or **Build BakaPong Kernel** for custom inputs) → **Run workflow**.
 3. Download the zip from the finished run.
 
-The `bakasu_ref` input picks the BakaSU version. Leave it empty to use the last BakaSU commit that still builds with SUSFS (BakaSU `main` currently refuses SUSFS builds until SUSFS catches up), or set it to `main`, a tag or a commit.
+The `bakasu_ref` input picks the BakaSU version. Leave it empty to use the last BakaSU commit tested with SUSFS, or set it to `main`, a tag or a commit.
 
 ## Credits
 

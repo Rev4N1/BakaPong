@@ -6,9 +6,6 @@
 - [AmneziaWG](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) built into the kernel (`CONFIG_AMNEZIAWG=y`), next to WireGuard. The AmneziaWG app can then use its kernel backend (*Settings → Use kernel module*, needs root)
 - `amneziawg_support` (default on) and `amneziawg_ref` workflow inputs
 
-## Fixed
-- "Splitting image failed" when flashing: AnyKernel3 is pinned to `c072981`, before the upstream change that broke its boot image unpack check
-
 ## v1.1.0 - BakaSU update (Oct.27 2026)
 
 ## Changes

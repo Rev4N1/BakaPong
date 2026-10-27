@@ -182,10 +182,7 @@ jobs:
           git clone --depth=1 -b "${{ inputs.kernel_branch || 'lineage-23.2' }}" \
             "${{ inputs.kernel_repo || 'https://github.com/LineageOS/android_kernel_nothing_sm8475.git' }}" \
             "$KERNEL_DIR"
-          # AnyKernel3 pinned: bb45b02 (master) aborts every flash with
-          # "Splitting image failed" (its unpack check always returns 1)
-          git clone -q https://github.com/osm0sis/AnyKernel3.git "$ANYKERNEL_DIR"
-          git -C "$ANYKERNEL_DIR" checkout -q c072981836cd3ee46ad52a5f2cba76ecb927cb1b
+          git clone --depth=1 https://github.com/osm0sis/AnyKernel3.git "$ANYKERNEL_DIR"
           rm -rf "$ANYKERNEL_DIR/.git"
 
       - name: Clone SUSFS

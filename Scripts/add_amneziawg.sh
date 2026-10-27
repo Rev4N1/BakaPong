@@ -41,6 +41,32 @@ sed -i 's/^struct genl_ops genl_ops\[\] = {/static struct genl_ops genl_ops[] = 
 # 32-bit ARM selects; these symbols don't exist on arm64.
 sed -i -E '/^\s*select (VFP|VFPv3|NEON|KERNEL_MODE_NEON)\b/d' "$DEST/Kconfig"
 
+# compat.h decides by version that 5.10.163+ has DEV_STATS_INC/ADD and
+# 5.10.215+ has timer_delete_sync: stable backports that Android's 5.10
+# skipped. Check this kernel's headers instead, and add what is missing.
+compat="$DEST/compat/compat.h"
+grep -q '^#endif /\* _WG_COMPAT_H \*/$' "$compat" \
+    || { echo "AmneziaWG compat.h changed: no end marker" >&2; exit 1; }
+: > "$tmp/fallbacks"
+if ! grep -q 'define DEV_STATS_INC' "$KERNEL_DIR/include/linux/netdevice.h"; then
+    cat >> "$tmp/fallbacks" <<'EOF'
+#undef DEV_STATS_INC
+#define DEV_STATS_INC(DEV, FIELD) ++DEV->stats.FIELD
+#undef DEV_STATS_ADD
+#define DEV_STATS_ADD(DEV, FIELD, VAL) DEV->stats.FIELD += VAL
+EOF
+fi
+if ! grep -q 'timer_delete_sync' "$KERNEL_DIR/include/linux/timer.h"; then
+    echo '#define timer_delete_sync(timer) del_timer_sync(timer)' >> "$tmp/fallbacks"
+fi
+if [ -s "$tmp/fallbacks" ]; then
+    awk 'FNR == NR { add = add $0 "\n"; next }
+         /^#endif \/\* _WG_COMPAT_H \*\/$/ { printf "/* BakaPong: backports this kernel lacks */\n%s\n", add }
+         { print }' "$tmp/fallbacks" "$compat" > "$tmp/compat.h"
+    mv "$tmp/compat.h" "$compat"
+    echo "compat.h: added $(grep -c '^#define' "$tmp/fallbacks") fallback(s) this kernel lacks"
+fi
+
 # Fail here, not halfway through a two-hour build, if a rename missed.
 if grep -rqE '^[a-z][^(;]*[ *]wg_[a-z0-9_]+\(' --include='*.c' "$DEST"; then
     echo "AmneziaWG still defines wg_* functions after the rename" >&2

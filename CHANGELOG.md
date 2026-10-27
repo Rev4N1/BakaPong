@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased - AmneziaWG
+## v1.2.0 - AmneziaWG (Oct.27 2026)
 
 ## New
 - [AmneziaWG](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module) built into the kernel (`CONFIG_AMNEZIAWG=y`), next to WireGuard. The AmneziaWG app can then use its kernel backend (*Settings → Use kernel module*, needs root)

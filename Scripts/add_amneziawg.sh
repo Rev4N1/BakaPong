@@ -37,7 +37,6 @@ find "$DEST" -type f \( -name '*.c' -o -name '*.h' \) -exec sed -i \
     -e 's/\bbogus_endpoints/awg_bogus_endpoints/g' \
     -e 's/module_param(awg_bogus_endpoints\([a-z0-9_]*\),/module_param_named(bogus_endpoints\1, awg_bogus_endpoints\1,/' \
     {} +
-sed -i 's/^struct genl_ops genl_ops\[\] = {/static struct genl_ops genl_ops[] = {/' "$DEST/netlink.c"
 # 32-bit ARM selects; these symbols don't exist on arm64.
 sed -i -E '/^\s*select (VFP|VFPv3|NEON|KERNEL_MODE_NEON)\b/d' "$DEST/Kconfig"
 
@@ -72,8 +71,6 @@ if grep -rqE '^[a-z][^(;]*[ *]wg_[a-z0-9_]+\(' --include='*.c' "$DEST"; then
     echo "AmneziaWG still defines wg_* functions after the rename" >&2
     exit 1
 fi
-grep -q '^static struct genl_ops genl_ops\[\]' "$DEST/netlink.c" \
-    || { echo "AmneziaWG netlink.c changed: genl_ops is not static" >&2; exit 1; }
 
 # Hook it into drivers/net, right after WireGuard.
 cd "$KERNEL_DIR"

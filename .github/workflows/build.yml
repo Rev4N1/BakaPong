@@ -61,6 +61,16 @@ on:
         required: false
         type: string
         default: ""
+      amneziawg_support:
+        description: "Build in AmneziaWG (the AmneziaWG app's kernel backend)"
+        required: false
+        type: boolean
+        default: true
+      amneziawg_ref:
+        description: "amneziawg-linux-kernel-module tag or commit (empty = the pinned commit)"
+        required: false
+        type: string
+        default: ""
 
   workflow_call:
     inputs:
@@ -106,6 +116,14 @@ on:
         type: string
         default: "LineageOS"
       bakasu_ref:
+        required: false
+        type: string
+        default: ""
+      amneziawg_support:
+        required: false
+        type: boolean
+        default: true
+      amneziawg_ref:
         required: false
         type: string
         default: ""
@@ -220,6 +238,13 @@ jobs:
           wget -O- https://github.com/vc-teahouse/Baseband-guard/raw/main/setup.sh | bash
           sed -i '/^config LSM$/,/^help$/{ /^[[:space:]]*default/ { /baseband_guard/! s/selinux/selinux,baseband_guard/ } }' security/Kconfig
 
+      - name: Add AmneziaWG
+        if: ${{ inputs.amneziawg_support == true }}
+        env:
+          # Pinned amneziawg-linux-kernel-module commit (v3.1.20260812)
+          AMNEZIAWG_REF: ${{ inputs.amneziawg_ref || '4569c4c67f3a57414969260cafbbd04694fbaae0' }}
+        run: bash Scripts/add_amneziawg.sh
+
       - name: Prepare build scripts
         run: |
           chmod +x Scripts/build_kernel.sh
@@ -241,6 +266,7 @@ jobs:
         run: |
           SUSFS_SUPPORT="${{ inputs.susfs_support }}" \
           BBG_SUPPORT="${{ inputs.bbg_support }}" \
+          AMNEZIAWG_SUPPORT="${{ inputs.amneziawg_support }}" \
           Scripts/build_kernel.sh
 
       - name: CCache Stats

@@ -77,8 +77,18 @@ if [ "${BBG_SUPPORT}" = "true" ]; then
   echo "CONFIG_BBG=y" >> "${EXTRA_CFG}"
 fi
 
+if [ "${AMNEZIAWG_SUPPORT:-false}" = "true" ]; then
+  echo "CONFIG_AMNEZIAWG=y" >> "${EXTRA_CFG}"
+fi
+
 cat "${EXTRA_CFG}" >> out/.config
 make ${MAKE_ARGS} olddefconfig
+
+# olddefconfig silently drops a symbol whose dependencies aren't met
+if [ "${AMNEZIAWG_SUPPORT:-false}" = "true" ] && ! grep -q '^CONFIG_AMNEZIAWG=y' out/.config; then
+  echo "CONFIG_AMNEZIAWG=y did not survive olddefconfig" >&2
+  exit 1
+fi
 [ -f scripts/setlocalversion ] && sed -i 's/-dirty//g' scripts/setlocalversion || true
 
 JOBS=$(( $(nproc) / 2 ))

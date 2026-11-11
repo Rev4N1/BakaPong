@@ -6,7 +6,7 @@ Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaS
 
 - **[BakaSU](https://github.com/Baka-SU/BakaSU)**: kernel-level root (formerly ReSukiSU).
 - **[SUSFS](https://gitlab.com/simonpunk/susfs4ksu)**: hides root from banking apps, games and integrity checks.
-- **[AmneziaWG](https://docs.amnezia.org/documentation/amnezia-wg/)**: WireGuard with disguised packets, built into the kernel next to WireGuard. In the [AmneziaWG app](https://play.google.com/store/apps/details?id=org.amnezia.awg), *Settings → Use kernel module* (needs root) then runs tunnels in the kernel instead of userspace.
+- **[AmneziaWG](https://docs.amnezia.org/documentation/amnezia-wg/)**: WireGuard with disguised packets, built into the kernel next to WireGuard. In the AmneziaWG app, *Settings → Use kernel module* (needs root) then runs tunnels in the kernel instead of userspace. Use [erophey7's fork](https://github.com/erophey7/amneziawg-android/releases/latest) for this: the official app fails with "Required tools unavailable" when a tunnel starts in kernel mode ([amneziawg-android#22](https://github.com/amnezia-vpn/amneziawg-android/issues/22), fixed in [#89](https://github.com/amnezia-vpn/amneziawg-android/pull/89), not merged yet).
 - **[BaseBandGuard](https://github.com/vc-teahouse/Baseband-guard)** (optional, off by default): stops apps and modules from touching critical partitions. It may bootloop together with BakaSU/SUSFS.
 
 ## Install

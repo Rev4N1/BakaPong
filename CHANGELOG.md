@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v1.3.0 - Latest BakaSU (Nov.11 2026)
 
 ## Changes
 - BakaSU is no longer pinned: builds use the latest `main` (tested with `548d1dd` and SUSFS v2.4.0). Set `bakasu_ref` to pin a version

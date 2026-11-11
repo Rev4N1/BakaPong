@@ -24,7 +24,7 @@ Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaS
 2. Go to **Actions** → **Test All Builds** (or **Build BakaPong Kernel** for custom inputs) → **Run workflow**.
 3. Download the zip from the finished run.
 
-The `bakasu_ref` input picks the BakaSU version. Leave it empty to use the last BakaSU commit tested with SUSFS, or set it to `main`, a tag or a commit.
+The `bakasu_ref` input picks the BakaSU version. Leave it empty for the latest (`main`), or set a tag or commit to pin one, e.g. if a BakaSU update stops building with SUSFS.
 
 `amneziawg_support` (on by default) builds AmneziaWG in, from [amneziawg-linux-kernel-module](https://github.com/amnezia-vpn/amneziawg-linux-kernel-module); `amneziawg_ref` picks its version (empty = the pinned commit). `Scripts/add_amneziawg.sh` adds it as `drivers/net/amneziawg` and renames its `wg_*` symbols to `awg_*`, so it links next to the kernel's own WireGuard.
 

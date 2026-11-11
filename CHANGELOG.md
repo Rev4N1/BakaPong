@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+## Changes
+- BakaSU is no longer pinned: builds use the latest `main` (tested with `548d1dd` and SUSFS v2.4.0). Set `bakasu_ref` to pin a version
+- Merged upstream MiguVT/NP2_Kernel (arter97 removal, BakaSU renames)
+
 ## v1.2.0 - AmneziaWG (Oct.27 2026)
 
 ## New

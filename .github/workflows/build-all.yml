@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       bakasu_ref:
-        description: "BakaSU tag or commit (empty = last commit tested with SUSFS, main = latest)"
+        description: "BakaSU branch, tag or commit (empty = main)"
         required: false
         type: string
         default: ""

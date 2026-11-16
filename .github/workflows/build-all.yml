@@ -30,6 +30,8 @@ jobs:
             bbg_support: false
             susfs_force: false
             amneziawg_support: true
+            droidspaces_support: true
+            droidspaces_resource_limits: false
 
     uses: ./.github/workflows/build.yml
     with:
@@ -43,4 +45,6 @@ jobs:
       bbg_support: ${{ matrix.bbg_support }}
       susfs_force: ${{ matrix.susfs_force }}
       amneziawg_support: ${{ matrix.amneziawg_support }}
+      droidspaces_support: ${{ matrix.droidspaces_support }}
+      droidspaces_resource_limits: ${{ matrix.droidspaces_resource_limits }}
       bakasu_ref: ${{ inputs.bakasu_ref }}

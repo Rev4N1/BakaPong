@@ -20,8 +20,13 @@ set -euo pipefail
 
 : "${KERNEL_DIR:?}"
 
-DS_RAW="https://raw.githubusercontent.com/ravindu644/Droidspaces-OSS/main/Documentation/resources/kernel-patches/GKI"
+# Pinned Droidspaces-OSS commit: these patches go into a rooted kernel, so
+# never build from a moving branch. Bump on purpose after reviewing the diff.
+: "${DROIDSPACES_REF:=cdadb9eb5d0f86aacffff60776333e6f6b73a30a}"
+DS_RAW="https://raw.githubusercontent.com/ravindu644/Droidspaces-OSS/${DROIDSPACES_REF}/Documentation/resources/kernel-patches/GKI"
 : "${DROIDSPACES_SYSVIPC_PATCH:=001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8.patch}"
+# A file name from below-kernel-6.12/, nothing else
+[[ "$DROIDSPACES_SYSVIPC_PATCH" =~ ^[A-Za-z0-9._-]+\.patch$ ]] || { echo "Invalid droidspaces_sysvipc_patch: $DROIDSPACES_SYSVIPC_PATCH" >&2; exit 1; }
 
 cd "$KERNEL_DIR"
 

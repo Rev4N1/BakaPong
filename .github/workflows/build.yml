@@ -75,7 +75,7 @@ on:
         description: "Enable Droidspaces support (Linux distro containers on GKI, kernels 5.4+)"
         required: false
         type: boolean
-        default: true
+        default: false
       droidspaces_sysvipc_patch:
         description: "SYSVIPC kABI patch for kernels below 6.12 (file in ravindu644/Droidspaces-OSS .../GKI/below-kernel-6.12/; try another variant if it fails to apply or the phone bootloops)"
         required: false
@@ -145,7 +145,7 @@ on:
       droidspaces_support:
         required: false
         type: boolean
-        default: true
+        default: false
       droidspaces_sysvipc_patch:
         required: false
         type: string

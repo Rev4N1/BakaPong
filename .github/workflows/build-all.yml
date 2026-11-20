@@ -18,9 +18,48 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Default Build (LineageOS)
-          - name: LineageOS
+          # kernel_type names the zip and artifacts, so each variant must differ
+          - name: LineageOS (base)
             kernel_type: LineageOS
+            kernel_repo: https://github.com/LineageOS/android_kernel_nothing_sm8475.git
+            kernel_branch: lineage-23.2
+            kernel_defconfig: gki_defconfig
+            extra_configs: vendor/waipio_GKI.config vendor/nothing/waipio_GKI.config vendor/debugfs.config
+            extra_patches_dir: ''
+            susfs_support: true
+            bbg_support: false
+            susfs_force: false
+            amneziawg_support: false
+            droidspaces_support: false
+            droidspaces_resource_limits: false
+          - name: LineageOS + AmneziaWG
+            kernel_type: LineageOS-AWG
+            kernel_repo: https://github.com/LineageOS/android_kernel_nothing_sm8475.git
+            kernel_branch: lineage-23.2
+            kernel_defconfig: gki_defconfig
+            extra_configs: vendor/waipio_GKI.config vendor/nothing/waipio_GKI.config vendor/debugfs.config
+            extra_patches_dir: ''
+            susfs_support: true
+            bbg_support: false
+            susfs_force: false
+            amneziawg_support: true
+            droidspaces_support: false
+            droidspaces_resource_limits: false
+          - name: LineageOS + Droidspaces
+            kernel_type: LineageOS-DS
+            kernel_repo: https://github.com/LineageOS/android_kernel_nothing_sm8475.git
+            kernel_branch: lineage-23.2
+            kernel_defconfig: gki_defconfig
+            extra_configs: vendor/waipio_GKI.config vendor/nothing/waipio_GKI.config vendor/debugfs.config
+            extra_patches_dir: ''
+            susfs_support: true
+            bbg_support: false
+            susfs_force: false
+            amneziawg_support: false
+            droidspaces_support: true
+            droidspaces_resource_limits: false
+          - name: LineageOS + AmneziaWG + Droidspaces
+            kernel_type: LineageOS-AWG-DS
             kernel_repo: https://github.com/LineageOS/android_kernel_nothing_sm8475.git
             kernel_branch: lineage-23.2
             kernel_defconfig: gki_defconfig
@@ -32,7 +71,6 @@ jobs:
             amneziawg_support: true
             droidspaces_support: true
             droidspaces_resource_limits: false
-
     uses: ./.github/workflows/build.yml
     with:
       kernel_type: ${{ matrix.kernel_type }}

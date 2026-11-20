@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.0 - Droidspaces (Nov.15 2026)
+
+## New
+- [Droidspaces](https://github.com/ravindu644/DroidSpaces) support for kernels 5.4+ (GKI procedure from [Droidspaces-OSS](https://github.com/ravindu644/Droidspaces-OSS)): `Scripts/add_droidspaces.sh` applies the version-selected SYSVIPC/POSIX-MQUEUE kABI patches, `Scripts/build_kernel.sh` merges the distro-container config options last (so they win over the vendor fragments) and fails the build when a required option does not survive `olddefconfig`
+- `droidspaces_support` (default on), `droidspaces_sysvipc_patch` (the SYSVIPC kABI patch used below 6.12; switch to another variant from `.../GKI/below-kernel-6.12/` when it does not apply or the phone bootloops) and `droidspaces_resource_limits` (default off; kABI-unsafe `--cpus` / `--pids-limit` cgroup options) workflow inputs
+
 ## v1.3.0 - Latest BakaSU (Nov.11 2026)
 
 ## Changes

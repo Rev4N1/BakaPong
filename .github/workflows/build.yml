@@ -71,6 +71,21 @@ on:
         required: false
         type: string
         default: ""
+      droidspaces_support:
+        description: "Enable Droidspaces support (Linux distro containers on GKI, kernels 5.4+)"
+        required: false
+        type: boolean
+        default: true
+      droidspaces_sysvipc_patch:
+        description: "SYSVIPC kABI patch for kernels below 6.12 (file in ravindu644/Droidspaces-OSS .../GKI/below-kernel-6.12/; try another variant if it fails to apply or the phone bootloops)"
+        required: false
+        type: string
+        default: "001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8.patch"
+      droidspaces_resource_limits:
+        description: "Enable CPU/PID limit configs (Warning: breaks the GKI kABI, vendor modules may reject the kernel)"
+        required: false
+        type: boolean
+        default: false
 
   workflow_call:
     inputs:
@@ -127,6 +142,18 @@ on:
         required: false
         type: string
         default: ""
+      droidspaces_support:
+        required: false
+        type: boolean
+        default: true
+      droidspaces_sysvipc_patch:
+        required: false
+        type: string
+        default: "001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8.patch"
+      droidspaces_resource_limits:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -245,6 +272,16 @@ jobs:
           AMNEZIAWG_REF: ${{ inputs.amneziawg_ref || '4569c4c67f3a57414969260cafbbd04694fbaae0' }}
         run: bash Scripts/add_amneziawg.sh
 
+      - name: Add Droidspaces
+        if: ${{ inputs.droidspaces_support == true }}
+        env:
+          # SYSVIPC kABI variant for kernels below 6.12; 6.12+ picks its own
+          # fixed variant automatically. Default is what the OSS guide
+          # recommends; switch to another file from .../GKI/below-kernel-6.12/
+          # if this one fails to apply or the phone bootloops afterwards.
+          DROIDSPACES_SYSVIPC_PATCH: ${{ inputs.droidspaces_sysvipc_patch || '001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8.patch' }}
+        run: bash Scripts/add_droidspaces.sh
+
       - name: Prepare build scripts
         run: |
           chmod +x Scripts/build_kernel.sh
@@ -267,6 +304,8 @@ jobs:
           SUSFS_SUPPORT="${{ inputs.susfs_support }}" \
           BBG_SUPPORT="${{ inputs.bbg_support }}" \
           AMNEZIAWG_SUPPORT="${{ inputs.amneziawg_support }}" \
+          DROIDSPACES_SUPPORT="${{ inputs.droidspaces_support }}" \
+          DROIDSPACES_RESOURCE_LIMITS="${{ inputs.droidspaces_resource_limits }}" \
           Scripts/build_kernel.sh
 
       - name: CCache Stats

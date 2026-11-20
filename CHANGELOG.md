@@ -1,14 +1,16 @@
 # Changelog
 
-## Unreleased
+## v1.4.0 - Droidspaces (Nov.20 2026)
+
+## New
+- [Droidspaces](https://github.com/ravindu644/DroidSpaces) support (Linux distro containers), using the GKI procedure from [Droidspaces-OSS](https://github.com/ravindu644/Droidspaces-OSS) with its SYSVIPC/POSIX-MQUEUE kABI patches pinned to `cdadb9e` (thanks @s18445, #1)
+- Four zips per release: `BakaPong-LineageOS` (base), `-AWG` (AmneziaWG), `-DS` (Droidspaces) and `-AWG-DS` (both). The plain `BakaPong-LineageOS.zip` no longer includes AmneziaWG
+- `droidspaces_support` (default off), `droidspaces_sysvipc_patch` and `droidspaces_resource_limits` (default off, kABI-unsafe) workflow inputs
 
 ## Changes
 - AmneziaWG v3.1.20261113-02 (rejects negative junk tag sizes, bounds aggregate junk spec size)
+- BakaSU `7b65bde` (version code 35262), SUSFS v2.4.0
 - actions/checkout v7
-
-## New
-- [Droidspaces](https://github.com/ravindu644/DroidSpaces) support for kernels 5.4+ (GKI procedure from [Droidspaces-OSS](https://github.com/ravindu644/Droidspaces-OSS)): `Scripts/add_droidspaces.sh` applies the version-selected SYSVIPC/POSIX-MQUEUE kABI patches, `Scripts/build_kernel.sh` merges the distro-container config options last (so they win over the vendor fragments) and fails the build when a required option does not survive `olddefconfig`
-- `droidspaces_support` (default off; Droidspaces-OSS patches pinned to a commit), `droidspaces_sysvipc_patch` (the SYSVIPC kABI patch used below 6.12; switch to another variant from `.../GKI/below-kernel-6.12/` when it does not apply or the phone bootloops) and `droidspaces_resource_limits` (default off; kABI-unsafe `--cpus` / `--pids-limit` cgroup options) workflow inputs
 
 ## v1.3.0 - Latest BakaSU (Nov.11 2026)
 

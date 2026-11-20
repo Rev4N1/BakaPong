@@ -12,7 +12,16 @@ Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaS
 
 ## Install
 
-1. Download `BakaPong-LineageOS.zip` from [Releases](../../releases).
+1. Download one zip from [Releases](../../releases):
+
+   | Zip | AmneziaWG | Droidspaces |
+   |---|---|---|
+   | `BakaPong-LineageOS.zip` | | |
+   | `BakaPong-LineageOS-AWG.zip` | ✓ | |
+   | `BakaPong-LineageOS-DS.zip` | | ✓ |
+   | `BakaPong-LineageOS-AWG-DS.zip` | ✓ | ✓ |
+
+   All of them have BakaSU and SUSFS.
 2. Boot into recovery (TWRP / OrangeFox).
 3. Flash the zip and reboot.
 4. Install the [BakaSU Manager](https://bakasu.org) to manage root.
@@ -23,7 +32,7 @@ Rooted kernel for the **Nothing Phone (2)** (Pong) on **LineageOS**, with [BakaS
 
 1. Fork this repo.
 2. Go to **Actions** → **Test All Builds** (or **Build BakaPong Kernel** for custom inputs) → **Run workflow**.
-3. Download the zip from the finished run.
+3. Download the zip from the finished run. **Test All Builds** makes all four variants above.
 
 The `bakasu_ref` input picks the BakaSU version. Leave it empty for the latest (`main`), or set a tag or commit to pin one, e.g. if a BakaSU update stops building with SUSFS.
 

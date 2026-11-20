@@ -180,7 +180,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Install dependencies & Setup CCache
         run: |

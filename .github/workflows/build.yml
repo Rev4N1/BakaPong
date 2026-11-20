@@ -268,8 +268,8 @@ jobs:
       - name: Add AmneziaWG
         if: ${{ inputs.amneziawg_support == true }}
         env:
-          # Pinned amneziawg-linux-kernel-module commit (v3.1.20261113)
-          AMNEZIAWG_REF: ${{ inputs.amneziawg_ref || '6879e270797840b148cd71e7fe04d19f9ddbda96' }}
+          # Pinned amneziawg-linux-kernel-module commit (v3.1.20261113-02)
+          AMNEZIAWG_REF: ${{ inputs.amneziawg_ref || '63ed35de3d3f135b17e8eae0b84949e7700303be' }}
         run: bash Scripts/add_amneziawg.sh
 
       - name: Add Droidspaces

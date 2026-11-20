@@ -3,7 +3,7 @@
 ## Unreleased
 
 ## Changes
-- AmneziaWG v3.1.20261113 (bounds junk tag/spec sizes)
+- AmneziaWG v3.1.20261113-02 (rejects negative junk tag sizes, bounds aggregate junk spec size)
 - actions/checkout v7
 
 ## New

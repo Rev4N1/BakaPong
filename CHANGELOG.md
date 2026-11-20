@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Changes
+- AmneziaWG v3.1.20261113 (bounds junk tag/spec sizes)
+- actions/checkout v7
+
 ## New
 - [Droidspaces](https://github.com/ravindu644/DroidSpaces) support for kernels 5.4+ (GKI procedure from [Droidspaces-OSS](https://github.com/ravindu644/Droidspaces-OSS)): `Scripts/add_droidspaces.sh` applies the version-selected SYSVIPC/POSIX-MQUEUE kABI patches, `Scripts/build_kernel.sh` merges the distro-container config options last (so they win over the vendor fragments) and fails the build when a required option does not survive `olddefconfig`
 - `droidspaces_support` (default off; Droidspaces-OSS patches pinned to a commit), `droidspaces_sysvipc_patch` (the SYSVIPC kABI patch used below 6.12; switch to another variant from `.../GKI/below-kernel-6.12/` when it does not apply or the phone bootloops) and `droidspaces_resource_limits` (default off; kABI-unsafe `--cpus` / `--pids-limit` cgroup options) workflow inputs

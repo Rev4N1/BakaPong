@@ -1,10 +1,11 @@
 # Changelog
 
-## v1.4.1 - Android 17 (Nov.22 2026)
+## v1.5.0 - Android 17 (Nov.23 2026)
 
 ## Changes
 - The zips install on Android 17: AnyKernel3 `supported.versions` is now `13 - 17` (thanks @s18445, #2)
-- Same kernel as v1.4.0: BakaSU `7b65bde` (version code 35262), SUSFS v2.4.0, AmneziaWG v3.1.20261113-02
+- BakaSU `63ad1ea` (latest `main`, version code 35282)
+- SUSFS v2.4.0 (`gki-android13-5.10` at `d480b31`), AmneziaWG v3.1.20261113-02 and Droidspaces-OSS `cdadb9e`: all still the latest
 
 ## v1.4.0 - Droidspaces (Nov.20 2026)
 
